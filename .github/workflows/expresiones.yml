@@ -1,0 +1,33 @@
+name: Expressions
+run-name: Running worflow dispatch with expressions
+
+on:
+    workflow_dispatch:
+        inputs:
+            name:
+                description: Name to customer
+                type: string
+                required: true
+            age:
+                description: Age to customer
+                type: number
+                required: true
+jobs:
+    special:
+        runs-on: ubuntu-latest
+        if: ${{input.age == 29 && contains(input.name, 'Bryan')}}
+        steps:
+            - name: Running special condition
+              run: echo ${{ inputs.name }} is with age ${{input.age}} is special
+    greather:
+        runs-on: ubuntu-latest
+        if: ${{input.age >= 18}}
+        steps:
+            - name: If age is greather to 18
+              run: echo ${{ inputs.name }} is greather
+    less:
+        runs-on: ubuntu-latest
+        if: ${{input.age < 18}}
+        steps:
+            - name: If age is less to 18
+              run: echo ${{ inputs.name }} is less
