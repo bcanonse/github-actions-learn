@@ -12,6 +12,6 @@ jobs:
             Greeting: Hello
         steps:
             - name: "Say Hello Mona it's Monday"
-              run: echo "$Greeting $NAME. Today is $DAY_OF_WEEK!"
+              run: echo "$Greeting ${{vars.NAME}} ${{env.LAST_NAME}} Today is $DAY_OF_WEEK!"
               env:
-                  NAME: Mona
+                  LAST_NAME: CANON
