@@ -15,19 +15,19 @@ on:
 jobs:
     special:
         runs-on: ubuntu-latest
-        if: ${{input.age == 29}} && contains(input.name, 'Bryan')
+        if: ${{inputs.age == 29}} && contains(inputs.name, 'Bryan')
         steps:
             - name: Running special condition
-              run: echo ${{ inputs.name }} is with age ${{input.age}} is special
+              run: echo ${{ inputs.name }} is with age ${{inputs.age}} is special
     greather:
         runs-on: ubuntu-latest
-        if: ${{input.age >= 18}}
+        if: ${{inputs.age >= 18}}
         steps:
             - name: If age is greather to 18
               run: echo ${{ inputs.name }} is greather
     less:
         runs-on: ubuntu-latest
-        if: ${{input.age < 18}}
+        if: ${{inputs.age < 18}}
         steps:
             - name: If age is less to 18
               run: echo ${{ inputs.name }} is less
