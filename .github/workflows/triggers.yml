@@ -1,0 +1,64 @@
+name: Learning Triggers
+run-name: Execute events push, pull_request and workflow_dispatch
+
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: Environment to running workflow
+                default: dev
+                required: true
+                type: choice
+                options:
+                    - dev
+                    - qa
+                    - prod
+    push:
+        branches: ["main"]
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches: ["main"]
+
+jobs:
+    push_job:
+        runs-on: ubuntu-latest
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set environment
+              run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v6.0.0
+              with:
+                  # Set always-auth in npmrc.
+                  node-version: 24
+
+            - name: Run script
+              run: node main.js
+    pr_job:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.pull_request }}
+        steps:
+            - name: Run command
+              run: echo If this is a pull request
+
+    dispatch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set environment set in inputs
+              run: echo "ENVIRONMENT=${{ inputs.environment }}" >> $GITHUB_ENV
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v6.0.0
+              with:
+                  # Set always-auth in npmrc.
+                  node-version: 24
+
+            - name: Run script
+              run: node dispatch.js

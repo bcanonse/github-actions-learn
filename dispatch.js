@@ -1,0 +1,1 @@
+console.log(`Running job in: ${process.env.ENVIRONMENT}!`)
