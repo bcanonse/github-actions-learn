@@ -1,0 +1,12 @@
+name: Context
+run-name: Running context
+
+on: [push]
+
+jobs:
+    check-main:
+        runs-on: ubuntu-latest
+        if: ${{github.ref == 'refs/heads/main'}}
+        steps:
+            - name: Context github to ref
+              run: echo "${{github.event_name}} to ref in $GITHUB_REF"
