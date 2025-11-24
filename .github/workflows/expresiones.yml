@@ -15,7 +15,7 @@ on:
 jobs:
     special:
         runs-on: ubuntu-latest
-        if: ${{input.age == 29 && contains(input.name, 'Bryan')}}
+        if: ${{input.age == 29}} && contains(input.name, 'Bryan')
         steps:
             - name: Running special condition
               run: echo ${{ inputs.name }} is with age ${{input.age}} is special
