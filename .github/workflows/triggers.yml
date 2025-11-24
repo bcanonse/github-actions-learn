@@ -47,9 +47,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Set environment set in inputs
-              run: |
-                  ENVIRONMENT=${{ inputs.environment }}
-                  echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+              run: echo "ENVIRONMENT=${{ inputs.environment }}" >> $GITHUB_ENV
 
             - name: Setup Node.js environment
               uses: actions/setup-node@v6.0.0
