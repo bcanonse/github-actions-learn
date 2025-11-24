@@ -2,20 +2,20 @@ name: Learning Triggers
 run-name: Execute events push, pull_request and workflow_dispatch
 
 on:
-    push:
-        branches: ["main"]
     workflow_dispatch:
         inputs:
             environment:
                 description: Environment to running workflow
                 type: string
                 required: true
-
+                default: dev
+    push:
+        branches: ["main"]
     pull_request:
         branches: ["main"]
 
 jobs:
-    push:
+    push_job:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -32,7 +32,7 @@ jobs:
 
             - name: Run script
               run: node main.js
-    pr:
+    pr_job:
         runs-on: ubuntu-latest
         if: ${{ github.event.pull_request }}
         steps:
@@ -58,4 +58,4 @@ jobs:
                   node-version: 24
 
             - name: Run script
-              run: node main.js
+              run: node dispatch.js
